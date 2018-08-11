@@ -1,13 +1,13 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const server  = express();
 server.use(express.json());
 server.use(express.urlencoded({
     extend:true
 }))
 
-server.use('/check',(req , res )=>{
-    res.send(`<h1>Nice to See you :)</h1>`)
-})
+mongoose.connect('mongodb://localhost:27017/blog');
+
 
 server.use('/user' , require('./Routes/user'))
 server.use('/post',require('./Routes/post'))

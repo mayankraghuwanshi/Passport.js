@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
 const USER = require('../models/user')
 const route = require('express').Router();
-mongoose.connect('mongodb://localhost:27017/blog');
+
 
 route.get('/',(req , res)=>{
     console.log("trying to get data")
