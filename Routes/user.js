@@ -1,4 +1,6 @@
-const USER = require('../models/user')
+const USER = require('../models/user');
+const passport = require('../Passport/passport');
+
 const route = require('express').Router();
 
 
@@ -24,5 +26,12 @@ route.post('/',( req , res )=>{
     })
 
 })
+
+route.post('/login',passport.authenticate('local', {
+
+    failureRedirect: '/fail',
+    successRedirect: '/success',
+    failureFlash : true
+}))
 
 module.exports = route;

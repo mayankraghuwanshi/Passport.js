@@ -1,14 +1,29 @@
-const express = require('express');
+const express  = require('express');
 const mongoose = require('mongoose');
-const server  = express();
+const passport = require('passport');
+const flash    = require('connect-flash')
+const session  = require('express-session')
+const server   = express();
 server.use(express.json());
 server.use(express.urlencoded({
     extend:true
 }))
 
+server.use(session({
+    secret:"ftaftkrlorecover"
+}))
+server.use(flash())
+server.use(passport.initialize())
+server.use(passport.session())
+
 mongoose.connect('mongodb://localhost:27017/blog');
 
-
+server.get('/fail',(req , res)=>{
+    res.send("fail");
+})
+server.get('/success',(req , res)=>{
+    res.send("success");
+})
 server.use('/user' , require('./Routes/user'))
 server.use('/post' , require('./Routes/post'))
 
