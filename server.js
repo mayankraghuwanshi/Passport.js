@@ -27,6 +27,16 @@ server.get('/fail',(req , res)=>{
 server.get('/success',(req , res)=>{
    res.send("success");
 })
+server.use('/home',(req , res)=>{
+    if(req.user){
+       res.render('index',{data:req.user})
+    }
+    else {
+        res.redirect('/blog/login.html')
+    }
+})
+server.use(express.static(__dirname+'/Public/user/'))
+server.use('/blog',express.static(__dirname+'/Public/user/'))
 server.use('/user' , require('./Routes/user'))
 server.use('/post' , require('./Routes/post'))
 

@@ -29,7 +29,7 @@ route.post('/',( req , res )=>{
 route.post('/login',passport.authenticate('local', {
 
     failureRedirect : '/fail',
-    successRedirect : '/success',
+    successRedirect : '/home',
        failureFlash : true
 }))
 route.get('/logedin',(req , res)=>{
