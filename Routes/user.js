@@ -32,13 +32,9 @@ route.post('/login',passport.authenticate('local', {
     successRedirect : '/home',
        failureFlash : true
 }))
-route.get('/logedin',(req , res)=>{
-    if(req.user) {
-        res.render('logedin', {data: "Loged"})
-    }
-    else {
-        res.render("logedin",{data: "NOT Loged"})
-    }
-
+route.get('/logout',(req , res)=>{
+    req.logout();
+    res.redirect('/home')
 })
+
 module.exports = route;
