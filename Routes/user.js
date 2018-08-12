@@ -1,15 +1,14 @@
-const USER = require('../models/user');
+const USER     = require('../models/user');
 const passport = require('../Passport/passport');
-
-const route = require('express').Router();
+const route    = require('express').Router();
 
 
 route.get('/',(req , res)=>{
-    console.log("trying to get data")
+      console.log("trying to get data")
 USER.find({}).then((data)=>{
-    res.send(data)
-}).catch((err)=>{
-    res.send({error:err})
+          res.send(data)
+})           .catch((err)=>{
+          res.send({error:err})
 })
 })
 route.post('/',( req , res )=>{
@@ -20,18 +19,26 @@ route.post('/',( req , res )=>{
           password : req.body.password
     });
     user.save().then((data)=>{
-        res.redirect('/user')
-    }).catch((err)=>{
-        res.send({error:err})
+            res.redirect('/user')
+    })         .catch((err)=>{
+            res.send({error:err})
     })
 
 })
 
 route.post('/login',passport.authenticate('local', {
 
-    failureRedirect: '/fail',
-    successRedirect: '/success',
-    failureFlash : true
+    failureRedirect : '/fail',
+    successRedirect : '/success',
+       failureFlash : true
 }))
+route.get('/logedin',(req , res)=>{
+    if(req.user) {
+        res.render('logedin', {data: "Loged"})
+    }
+    else {
+        res.render("logedin",{data: "NOT Loged"})
+    }
 
+})
 module.exports = route;
